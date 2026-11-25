@@ -146,11 +146,33 @@ class ListaPasajeros:
         pasajero = self.buscar(numero)
         if pasajero is None:
             return None
-        
-        raise NotImplementedError("eliminar")
+        # Caso 1: El nodo a eliminar es la cabeza
+        if self.head.data == pasajero:
+            self.head = self.head.next
+            self.cantidad -= 1
+            return pasajero
+
+        # Caso 2: El nodo está en medio o al final
+        anterior = self.head
+        actual = self.head.next
+        while actual is not None:
+            if actual.data == pasajero:
+                anterior.next = actual.next
+                self.cantidad -= 1
+                return pasajero
+            anterior = actual
+            actual = actual.next
+
+        return None
 
     def filtrar_por_clase(self, clase):
         """Retorna una list con los pasajeros de esa clase ("Ejecutiva" o
         "Económica"), en el mismo orden de la lista.
         Pista: cada pasajero sabe su clase con  pasajero.clase()"""
-        raise NotImplementedError("filtrar_por_clase")
+        resultado = []
+        actual = self.head
+        while actual is not None:
+            if actual.data.clase() == clase:
+                resultado.append(actual.data)
+            actual = actual.next
+        return resultado
