@@ -162,7 +162,6 @@ class ListaPasajeros:
                 return pasajero
             anterior = actual
             actual = actual.next
-
         return None
 
     def filtrar_por_clase(self, clase):
